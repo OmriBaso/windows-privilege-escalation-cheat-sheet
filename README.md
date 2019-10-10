@@ -37,6 +37,7 @@ Example:
 Check running process 
 1. `ps`
 
+or in powershell
 ```
 Get-WmiObject -Query "Select * from Win32_Process" | where {$_.Name -notlike "svchost*"} | Select Name, Handle, @{Label="Owner";Expression={$_.GetOwner().User}} | ft -AutoSize
 ```
