@@ -88,7 +88,7 @@ $ Start a listener on port 9001
 ______________________________________________________
 
 12. Check for files like .txt / .php - read them.
-check for automated scripts that are waiting for scertain files for example:
+check for automated scripts that are waiting for certain files for example:
 
 "Admin is waiting for PDF drop it in C:\Docs" - create a Malicious PDF - drop it
 
